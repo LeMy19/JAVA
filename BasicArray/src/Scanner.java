@@ -1,0 +1,8 @@
+
+public class Scanner {
+	
+	public void sayHello() {
+		System.out.println("æ»≥Á«œººø‰!");
+	}
+
+}
