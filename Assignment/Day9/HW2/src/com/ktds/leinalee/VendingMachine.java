@@ -2,7 +2,7 @@ package com.ktds.leinalee;
 
 public class VendingMachine {
 	
-	private int eggCount = 30;
+	private int eggCount = 3;
 	private int eggPrice = 1000;
 	private int money = 0;
 	
@@ -27,6 +27,11 @@ public class VendingMachine {
 		customer.getMoney(remain);
 	}
 	
+	public boolean canPossible ( ) {
+		if(this.eggCount < 1)
+			return false;
+		return true;
+	}
 
 	
 	//현재 상태 정보 

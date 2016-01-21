@@ -40,10 +40,15 @@ public class Market {
 			
 			if( menuState == 1 ) {
 				System.out.print("돈을 얼마나 넣을 것 입니까?");
-				payMoney = scanner.nextInt();
-				eggMachine.getMoneyFromCustomer(payMoney, customerOne);
-				eggMachine.sellEgg(customerOne);
-				eggMachine.giveRemain(payMoney, customerOne);
+				if( eggMachine.canPossible() == true ) {
+					payMoney = scanner.nextInt();
+					eggMachine.getMoneyFromCustomer(payMoney, customerOne);
+					eggMachine.sellEgg(customerOne);
+					eggMachine.giveRemain(payMoney, customerOne);
+				} else {
+					System.out.println("\n계란 후라이 품절...");
+					break;
+				}
 			} else if ( menuState == 2 ) {
 				customerOne.printInfo();
 			} else if ( menuState == 3 ) {
