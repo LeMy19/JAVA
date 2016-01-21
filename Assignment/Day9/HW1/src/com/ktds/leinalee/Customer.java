@@ -9,7 +9,7 @@ public class Customer {
 	private int age;
 	private int cigarette;
 	
-	public void payForCigarette ( int money ) {
+	public void payForCigarette ( int money , int selectedCigarette) {
 		this.money -= money;
 	}
 	
@@ -17,12 +17,12 @@ public class Customer {
 		this.money += change;		
 	}
 	
-	public void getCigarette () {
-		this.cigarette++;
+	public void getCigarette ( int selectedCigarette ) {
+		this.cigarette += selectedCigarette;
 	}
 	
 	public void isSmoking () {
-		if( cigarette > 1)
+		if( cigarette >= 1)
 			this.cigarette--;
 		else 
 			System.out.println("담배가 없습니다. 피우실 수 없습니다.");
@@ -37,10 +37,10 @@ public class Customer {
 	}
 	
 	public boolean moneyCheck( int inputMoney, int selectedCigarette, Customer customer, Store store ) {
-		if( inputMoney > store.cigarettePrice * selectedCigarette && inputMoney < this.money ) {
-			return true;
-		} else 
+		if( inputMoney < store.cigarettePrice * selectedCigarette || inputMoney > this.money ) {
 			return false;
+		} 
+		return true;
 	}
 	
 	public void setInfo(Scanner scanner) {
