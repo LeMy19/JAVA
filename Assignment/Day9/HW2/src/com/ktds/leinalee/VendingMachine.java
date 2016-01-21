@@ -27,8 +27,8 @@ public class VendingMachine {
 		customer.getMoney(remain);
 	}
 	
-	public boolean canPossible ( ) {
-		if(this.eggCount < 1)
+	public boolean canPossible ( int money ) {
+		if(this.eggCount < 1 || this.eggPrice > money )
 			return false;
 		return true;
 	}

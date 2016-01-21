@@ -25,6 +25,13 @@ public class Customer {
 		this.money += remain;
 	}
 	
+	public boolean checkMoney ( int money ) {
+		if( this.money < money ) {
+			return false;
+		}
+		return true;
+	}
+	
 	//현재 상태
 	public void printInfo() {
 		System.out.println("현재 소지 금액 : " + this.money);
