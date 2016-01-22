@@ -22,48 +22,53 @@ public class Market {
 	
 	public void start () {
 				
+//		소비자 정보 
 		int menu;
 		int age;
-
-		int inputMoney;
+		int inputMoneyForCigarette;
 		int selectedCigarette;
 		
-		//조건문 체크할 때 필요한 변수 
-		boolean ageCheck = true;
-		boolean moneyCheck = true;
-		boolean checkCigarette = true;
+//		조건문 체크할 때 필요한 변수 
+		boolean checkAge = true;
+		boolean checkMoney = true;
+		boolean checkCigaretteCount = true;
 		String goHome;
 		
+//		인스턴스 생성 
 		Scanner scanner = new Scanner(System.in);
 		Customer customer = new Customer();
 		Store store = new Store();	
-		
-		
-		//program start! 
+			
+//		program start! 
 		System.out.println("<<담배가게에 오신 것을 환영합니다>>");
+//		초기 상태 설정
 		customer.setInfo(scanner);
 
+//		반복
 		while (true) {
 			showMenu();
 			menu = scanner.nextInt();
+
+//			나이확인 하기 
+			checkAge = customer.underAgeCheck();
 	
-			
-			if ( menu == 1) { //담배사기
-				ageCheck = customer.ageCheck();
-				if (ageCheck == false) {
-					System.out.println("미성년자는 담배를 살 수 없습니다.");
-					continue;
-				} 
-				System.out.println("현재 담배 가격:"+store.cigarettePrice);
+//			담배사기
+			if ( menu == 1 && checkAge ) {
+				System.out.println("현재 담배 가격:"+store.CIGARETTE_PRICE);
 				System.out.print("돈을 넣으세요:");
-				inputMoney = scanner.nextInt();
+				inputMoneyForCigarette = scanner.nextInt();
 				
 				System.out.print("담배를 몇개 살지 정하세요:");
-				selectedCigarette = scanner.nextInt();
+				store.computeMoney(inputMoneyForCigarette);
+				selectedCigarette = scanner.nextInt();				
 				
-				checkCigarette = store.checkCigarette(selectedCigarette);
+//				재고확인 
+				checkCigaretteCount = store.checkCigarette(selectedCigarette);
 				
-				if ( checkCigarette == false ) {
+//				소비자 돈 확인
+				checkMoney = customer.moneyCheck(inputMoneyForCigarette, selectedCigarette, customer, store);
+
+				if ( !checkCigaretteCount || !checkMoney ) {
 					System.out.print("집으로 가시겠습니까? y/n :");
 					goHome = scanner.next();
 					if(goHome.equalsIgnoreCase("y")) {
@@ -72,25 +77,25 @@ public class Market {
 						continue;
 				}
 				
-				moneyCheck = customer.moneyCheck(inputMoney, selectedCigarette, customer, store);
-				if ( moneyCheck == false ) {
-					System.out.println("금전 관계 상 담배를 살 수 없습니다.");
-					continue;
-				}
-				
-				store.getMoney(inputMoney, selectedCigarette, customer, store);
-				store.giveChange(inputMoney, selectedCigarette, customer);
+//				담배 판매 최종 확정  
+				store.getMoney(inputMoneyForCigarette, customer);
+				store.giveChange(inputMoneyForCigarette, selectedCigarette, customer);
 				store.giveCigarette(customer, selectedCigarette);
-			} else if ( menu == 2 ) { //내상태확인
+//			2. 내상태확인
+			} else if ( menu == 2 ) { 
 				customer.printInfo();
-			} else if ( menu == 3) { //가게재고확인
+//			3. 가게 재고 확인	
+			} else if ( menu == 3) { 
 				store.printInfo();
-			} else if ( menu == 4 ) { //담배피기
+//			4. 담배피기
+			} else if ( menu == 4 ) { 
 				customer.isSmoking();
-			} else if ( menu == 5 ) { //집으로
+//			5. 집으로 (종료)
+			} else if ( menu == 5 ) { 
 				System.out.println("담배가게를 벗어납니다... 안녕히가세요!");
 				break;
-			} else if ( menu == 6) { //내상태변경
+//			6. 초기상태 변경 (나이, 이름)
+			} else if ( menu == 6) { 
 				customer.setInfo(scanner);
 			}
 			
