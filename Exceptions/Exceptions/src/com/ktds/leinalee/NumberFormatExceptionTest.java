@@ -2,6 +2,8 @@ package com.ktds.leinalee;
 
 import java.util.Scanner;
 
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 public class NumberFormatExceptionTest {
 
 	public int parseInt(String str) {
@@ -18,7 +20,7 @@ public class NumberFormatExceptionTest {
 		
 		Scanner input = new Scanner(System.in);
 		String numberString = input.next();
-		
+
 //		[문자를 정수로 변환한다] 
 //		문자를 long type으로 변환한다. 
 //		문자를 short type으로 변환한다. 
