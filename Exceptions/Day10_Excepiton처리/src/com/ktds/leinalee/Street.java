@@ -54,21 +54,32 @@ public class Street {
 				
 //			메뉴 출력 
 			machine.printMenu();
+			drinkNumber = 0;
+			quantity = 0;
+			while(true) {
+				try {
+		//			사용자의 돈 setting
+					System.out.println("돈을 넣어주세요.");
+					customerMoney = scanner.nextInt();
+					if ( !machine.getMoney(customerMoney, customer) ) {
+						System.out.println("돈이 부족합니다.");
+						break;
+					}
+					
+		//			drinkNumber(음료수 종류), quantity(음료수 개수), Customer
+					System.out.println("음료수 종류를 입력하세요.");
+					drinkNumber = scanner.nextInt();
+					System.out.println("음료수 개수를 입력하세요.");
+					quantity = scanner.nextInt();
+					
+					break;
+				}
+				catch (InputMismatchException ime) {
+					scanner = new Scanner (System.in);
+					System.out.println("잘 못 입력하셨습니다. 다시 입력하세요.");
+				}
 			
-//			사용자의 돈 setting
-			System.out.println("돈을 넣어주세요.");
-			customerMoney = scanner.nextInt();
-			if ( !machine.getMoney(customerMoney, customer) ) {
-				System.out.println("돈이 부족합니다.");
-				break;
 			}
-			
-//			drinkNumber(음료수 종류), quantity(음료수 개수), Customer
-			System.out.println("음료수 종류를 입력하세요.");
-			drinkNumber = scanner.nextInt();
-			System.out.println("음료수 개수를 입력하세요.");
-			quantity = scanner.nextInt();
-			
 			machine.giveDrink(drinkNumber, quantity, customer);
 			
 //			customer Infomation print
