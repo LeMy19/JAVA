@@ -43,6 +43,42 @@ public class InputMissMatchExceptionTest {
 		} //while 
 		
 		System.out.println("당신이 입력한 정수는 " + number + " 입니다.");
+		
+		int numberOne = 0;
+		int numberTwo = 0;
+		int numberThree = 0;
+//		switch 문을 사용하기 위한 케이스 변수
+		int currentStatus = 1;
+		
+		while(true) {
+			try {
+				switch( currentStatus ) {
+				case 1 : 
+					System.out.println("첫 번째 수 입력 : ");
+					numberOne = input.nextInt();
+//					case 1 이 잘 된다면, currentStatus를 2로 바꿔주고 다음부터 시작하도록한다
+					currentStatus = 2;
+				case 2 :
+					System.out.println("두 번째 수 입력 : ");
+					numberTwo = input.nextInt();
+					currentStatus = 3;
+				case 3 : 
+					System.out.println("세 번째 수 입력 : ");
+					numberThree = input.nextInt();
+					currentStatus = 1;
+				}
+				break;
+			} catch (InputMismatchException ime) {
+				input = new Scanner (System.in);
+				System.out.println("잘 못 입력하셨습니다.");
+			}
+			
+		} //while
+		
+		System.out.println("당신이 입력한 수는 " + numberOne);
+		System.out.println("당신이 입력한 수는 " + numberTwo);
+		System.out.println("당신이 입력한 수는 " + numberThree);
+		
 	}
 	
 	
