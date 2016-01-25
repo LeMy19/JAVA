@@ -1,7 +1,9 @@
 package com.ktds.leinalee;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -14,6 +16,7 @@ public class DictionaryProgram {
 
 	//	인스턴스 생성 
 	private Map<String, String> dictionary;
+	private List<String> wordKey;
 	private Scanner console;
 	
 	//	getter & setter 
@@ -56,6 +59,7 @@ public class DictionaryProgram {
 	public DictionaryProgram() {
 		this.dictionary= new HashMap<String, String>();
 		this.console = new Scanner(System.in);
+		this.wordKey = new ArrayList<String>();
 	}
 	
 	/**
@@ -78,6 +82,7 @@ public class DictionaryProgram {
 		System.out.println("1. 단어 등록");
 		System.out.println("2. 단어 조회");
 		System.out.println("3. 단어 삭제");
+		System.out.println("4. 단어 열람");
 		System.out.println("9. 종료");
 	}
 	
@@ -99,18 +104,23 @@ public class DictionaryProgram {
 			
 			try {
 	//			메뉴를 입력 받음 
+				this.printMenu();
+				
 				setFlag(choiceMenu(console));
 	//			Scanner reset
 				console = new Scanner(System.in);
 				
 				if(flag == 1) {
-					addNewWord(console);
+					addNewWord();
 				}
 				else if (flag == 2) {
-					findWord(console);
+					findWord();
 				} 
 				else if (flag == 3) {
-					removeWord(console);
+					removeWord();
+				}
+				else if (flag == 4) {
+					showMeAllWords();
 				}
 				else {
 					System.out.println("시스템이 종료됩니다");
@@ -130,7 +140,7 @@ public class DictionaryProgram {
 	/**
 	 * 새로운 영어 단어 등록 
 	 */
-	public void addNewWord (Scanner console) {
+	public void addNewWord () {
 		System.out.println("등록하고 싶은 영어 단어를 입력하세요.");
 		setEnglish(console.next());
 		System.out.println("등록하고 싶은 영어 단어의 뜻을 한국어로 입력하세요.");
@@ -138,12 +148,13 @@ public class DictionaryProgram {
 		
 //		Map에 단어를 등록함
 		dictionary.put(english, korean);
+		wordKey.add(english);
 	}
 	
 	/**
 	 * 단어를 찾습니다.
 	 */
-	public void findWord (Scanner console) {
+	public void findWord () {
 		System.out.println("찾고 싶은 영어 단어를 입력하세요.");
 		setEnglish(console.next());
 
@@ -161,7 +172,7 @@ public class DictionaryProgram {
 	/**
 	 * 단어를 삭제한다
 	 */
-	public void removeWord(Scanner console) {
+	public void removeWord() {
 		System.out.println("삭제하고 싶은 영어 단어를 입력하세요.");
 		setEnglish(console.next());
 	
@@ -173,13 +184,27 @@ public class DictionaryProgram {
 		else {
 //			Map에서 단어를 삭제함 
 			dictionary.remove(english);
+			wordKey.remove(wordKey.indexOf(english));
 			System.out.println(english +"를(을) 삭제했습니다.");
 		}
 	}
 	
+	/**
+	 * 등록된 모든 단어를 보여주는 메뉴 
+	 */
+	public void showMeAllWords() {
+		
+		for(int i = 0; i<wordKey.size(); i++) {
+//			wordKey.get(i) == key값 / dictionary.get(key값) == value값
+			String meaning = dictionary.get(wordKey.get(i));
+			System.out.println( (i+1) +"번째 단어 : " + wordKey.get(i) + "의 뜻 : " + meaning ) ;
+		}
+		
+//		System.out.println(dictionary.entrySet());
+	}
+	
 	public void ProgramStart() {
 
-		this.printMenu();
 		this.matchMenu();
 		
 	}
