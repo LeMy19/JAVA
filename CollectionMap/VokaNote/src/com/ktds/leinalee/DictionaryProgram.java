@@ -90,6 +90,44 @@ public class DictionaryProgram {
 	}
 	
 	/**
+	 * 선택 메뉴 매칭 
+	 */
+	public void matchMenu() {
+		
+//		예외 처리 위한 while문 
+		while(true) {
+			
+			try {
+	//			메뉴를 입력 받음 
+				setFlag(choiceMenu(console));
+	//			Scanner reset
+				console = new Scanner(System.in);
+				
+				if(flag == 1) {
+					addNewWord(console);
+				}
+				else if (flag == 2) {
+					findWord(console);
+				} 
+				else if (flag == 3) {
+					removeWord(console);
+				}
+				else {
+					System.out.println("시스템이 종료됩니다");
+					break;
+				}
+			} //try
+			catch (InputMismatchException ime) {
+				System.out.println(ime.getMessage()+"라는 오류가 발생했습니다.");
+				System.out.println("다시 메뉴를 입력하세요.");
+				console = new Scanner(System.in);
+			} //catch
+			
+		} //while
+		
+	}
+	
+	/**
 	 * 새로운 영어 단어 등록 
 	 */
 	public void addNewWord (Scanner console) {
@@ -139,43 +177,10 @@ public class DictionaryProgram {
 		}
 	}
 	
-	
 	public void ProgramStart() {
 
-//		프로그램 시작 안내 문구 
-		this.introduction();
+		this.printMenu();
+		this.matchMenu();
 		
-//		프로그램의 메인 부분 처리 
-		while(true) {
-//			메뉴선택
-			printMenu();
-			
-			try {
-	//			메뉴를 입력 받음 
-				setFlag(choiceMenu(console));
-	//			Scanner reset
-				console = new Scanner(System.in);
-				
-				if(flag == 1) {
-					addNewWord(console);
-				}
-				else if (flag == 2) {
-					findWord(console);
-				} 
-				else if (flag == 3) {
-					removeWord(console);
-				}
-				else {
-					System.out.println("시스템이 종료됩니다");
-					break;
-				}
-			}
-			catch (InputMismatchException ime) {
-				System.out.println(ime.getMessage()+"라는 오류가 발생했습니다.");
-				System.out.println("다시 메뉴를 입력하세요.");
-				console = new Scanner(System.in);
-			}
-			
-		} //while
 	}
 }
