@@ -3,26 +3,23 @@ package com.ktds.leinalee;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class AddressBookMenuPrint {
-
-//	instance field
-	private int flag;
+public class AddressMenu {
 	
+	private int flag;
 	private Scanner scanner;
 	
-//	Setter & Getter
 	public int getFlag() {
 		return flag;
 	}
-	
-	public AddressBookMenuPrint() {
-		scanner = new Scanner(System.in);
-		this.headerMenu();
-	}
-	
-//	method
+
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+
+	
+	public AddressMenu() {
+		this.headerMenu();
+		scanner = new Scanner(System.in);
 	}
 
 	public void headerMenu() {
@@ -35,7 +32,7 @@ public class AddressBookMenuPrint {
 		System.out.println("1. 주소 등록");
 		System.out.println("2. 주소 찾기");
 		System.out.println("3. 주소 삭제");
-		System.out.println("4. 주소 업데이트");
+//		System.out.println("4. 주소 업데이트");
 		System.out.println("5. 등록된 주소 목록 보기");
 		System.out.println("9. 종료");
 		System.out.println("-------------------------------");		
