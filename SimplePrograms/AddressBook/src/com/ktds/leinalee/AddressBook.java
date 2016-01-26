@@ -34,6 +34,7 @@ public class AddressBook {
 				} catch (InputMismatchException ime) {
 					System.out.println("잘 못 된 나이 입력입니다.");
 					System.out.println("메뉴로 되돌아 갑니다.");
+					continue;
 				}
 				
 				scanner = new Scanner(System.in);
