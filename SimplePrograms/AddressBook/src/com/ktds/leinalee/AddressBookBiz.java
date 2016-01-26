@@ -56,6 +56,12 @@ public class AddressBookBiz {
 			System.out.println(numbering + "번째 : " + addressInfo.getName());
 			numbering++;
 		}
+		if( numbering == 1) {
+			System.out.println("현재 주소록에 등록된 주소가 없습니다. ");
+		} 
+		else {
+			System.out.println("총 " + (numbering-1) + "개의 주소가 검색되었습니다.");
+		}
 		System.out.println("-------------------------------");
 	}
 	

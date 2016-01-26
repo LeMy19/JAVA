@@ -26,6 +26,7 @@ public class AddressBook {
 			if(menu.getFlag() == 1) {
 				System.out.println("이름을 입력하시오.");
 				addressBookInfo.setName(scanner.nextLine());
+				scanner = new Scanner(System.in);
 				
 				System.out.println("나이를 입력하시오.");
 				try {
@@ -33,11 +34,13 @@ public class AddressBook {
 				} catch (InputMismatchException ime) {
 					System.out.println("잘 못 된 나이 입력입니다.");
 					System.out.println("메뉴로 되돌아 갑니다.");
-				}		
-
-				System.out.println("전화번호를 입력하시오.( -하이퍼를 꼭 넣어주세요)");
+				}
+				
+				scanner = new Scanner(System.in);
+				System.out.println("전화번호를 입력하시오.");
 				while(addressBookInfo.setPhoneNumber(scanner.nextLine()));
 				
+				scanner = new Scanner(System.in);
 				System.out.println("주소를 입력하시오.");
 				addressBookInfo.setAddress(scanner.nextLine());
 				
@@ -68,7 +71,7 @@ public class AddressBook {
 				biz.deleteAddressbyName(scanner.next());
 			}
 			else if (menu.getFlag() == 5) {
-				System.out.println("등록된 주로록을 불러옵니다.");
+				System.out.println("등록된 주로록을 불러옵니다....loading....");
 				biz.showAllAddress();
 			}
 			else {
