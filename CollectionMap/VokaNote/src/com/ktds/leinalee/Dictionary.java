@@ -10,7 +10,7 @@ public class Dictionary {
 	public void start() {
 		
 		DictionaryProgram program = new DictionaryProgram();
-		program.introduction();
+		program.headerMenu();
 		program.ProgramStart();
 		
 	}

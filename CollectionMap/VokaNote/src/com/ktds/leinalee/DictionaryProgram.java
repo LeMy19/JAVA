@@ -63,27 +63,77 @@ public class DictionaryProgram {
 	}
 	
 	/**
-	 * intruduction
+	 * header menu 헤더메뉴
 	 */
-	public void introduction () {
-//		인삿말
+	public void headerMenu () {
 		System.out.println("--------------------------------");
 		System.out.println("         간단한 단어장");
 		System.out.println("--------------------------------");
-
 	}
 	
 	/**
-	 * menu를 프린트 하는 메소드 
+	 * 4. 등록된 모든 단어를 보여주는 메뉴 
 	 */
-	public void printMenu() {
+	public void showMeAllWords() {
+		
+		for(int i = 0; i<wordKey.size(); i++) {
+//			wordKey.get(i) == key값 / dictionary.get(key값) == value값
+			String meaning = dictionary.get(wordKey.get(i));
+			System.out.println( (i+1) +"번째 단어 : " + wordKey.get(i) + "의 뜻 : " + meaning ) ;
+		}
+//		System.out.println(dictionary.entrySet());
+	}
+	
+	/**
+	 * 3. 단어를 삭제한다
+	 */
+	public void removeWord() {
+		System.out.println("삭제하고 싶은 영어 단어를 입력하세요.");
+		setEnglish(console.next());
+	
+//		Map에서 단어를 가져옴 
+		setKorean(dictionary.get(english));
+		if(korean == null) {
+			System.out.println("해당 단어는 존재하지 않습니다.");
+		} 
+		else {
+//			Map에서 단어를 삭제함 
+			dictionary.remove(english);
+			wordKey.remove(wordKey.indexOf(english));
+			System.out.println(english +"를(을) 삭제했습니다.");
+		}
+	}
+	
+	/**
+	 * 2. 단어를 찾습니다.
+	 */
+	public void findWord () {
+		System.out.println("찾고 싶은 영어 단어를 입력하세요.");
+		setEnglish(console.next());
 
-		System.out.println("*******메뉴를 선택하세요********");
-		System.out.println("1. 단어 등록");
-		System.out.println("2. 단어 조회");
-		System.out.println("3. 단어 삭제");
-		System.out.println("4. 단어 열람");
-		System.out.println("9. 종료");
+//		Map에서 단어를 가져옴 
+		setKorean(dictionary.get(english));
+		
+		if (korean == null) {
+			System.out.println("해당 단어가 존재하지 않습니다.");
+		} 
+		else {
+			System.out.println(english + "의 뜻은" + getKorean() + "입니다.");
+		}
+	}
+	
+	/**
+	 * 1. 새로운 영어 단어 등록 
+	 */
+	public void addNewWord () {
+		System.out.println("등록하고 싶은 영어 단어를 입력하세요.");
+		setEnglish(console.next());
+		System.out.println("등록하고 싶은 영어 단어의 뜻을 한국어로 입력하세요.");
+		setKorean(console.next());
+		
+//		Map에 단어를 등록함
+		dictionary.put(english, korean);
+		wordKey.add(english);
 	}
 	
 	/**
@@ -95,6 +145,19 @@ public class DictionaryProgram {
 	}
 	
 	/**
+	 * menu를 프린트 하는 메소드 
+	 */
+	private void printMenu() {
+
+		System.out.println("*******메뉴를 선택하세요********");
+		System.out.println("1. 단어 등록");
+		System.out.println("2. 단어 조회");
+		System.out.println("3. 단어 삭제");
+		System.out.println("4. 단어 열람");
+		System.out.println("9. 종료");
+	}
+	
+	/**
 	 * 선택 메뉴 매칭 
 	 */
 	public void matchMenu() {
@@ -103,11 +166,11 @@ public class DictionaryProgram {
 		while(true) {
 			
 			try {
-	//			메뉴를 입력 받음 
+//							메뉴를 입력 받음 
 				this.printMenu();
 				
 				setFlag(choiceMenu(console));
-	//			Scanner reset
+//							Scanner reset
 				console = new Scanner(System.in);
 				
 				if(flag == 1) {
@@ -137,72 +200,7 @@ public class DictionaryProgram {
 		
 	}
 	
-	/**
-	 * 새로운 영어 단어 등록 
-	 */
-	public void addNewWord () {
-		System.out.println("등록하고 싶은 영어 단어를 입력하세요.");
-		setEnglish(console.next());
-		System.out.println("등록하고 싶은 영어 단어의 뜻을 한국어로 입력하세요.");
-		setKorean(console.next());
-		
-//		Map에 단어를 등록함
-		dictionary.put(english, korean);
-		wordKey.add(english);
-	}
-	
-	/**
-	 * 단어를 찾습니다.
-	 */
-	public void findWord () {
-		System.out.println("찾고 싶은 영어 단어를 입력하세요.");
-		setEnglish(console.next());
-
-//		Map에서 단어를 가져옴 
-		setKorean(dictionary.get(english));
-		
-		if (korean == null) {
-			System.out.println("해당 단어가 존재하지 않습니다.");
-		} 
-		else {
-			System.out.println(english + "의 뜻은" + getKorean() + "입니다.");
-		}
-	}
-	
-	/**
-	 * 단어를 삭제한다
-	 */
-	public void removeWord() {
-		System.out.println("삭제하고 싶은 영어 단어를 입력하세요.");
-		setEnglish(console.next());
-	
-//		Map에서 단어를 가져옴 
-		setKorean(dictionary.get(english));
-		if(korean == null) {
-			System.out.println("해당 단어는 존재하지 않습니다.");
-		} 
-		else {
-//			Map에서 단어를 삭제함 
-			dictionary.remove(english);
-			wordKey.remove(wordKey.indexOf(english));
-			System.out.println(english +"를(을) 삭제했습니다.");
-		}
-	}
-	
-	/**
-	 * 등록된 모든 단어를 보여주는 메뉴 
-	 */
-	public void showMeAllWords() {
-		
-		for(int i = 0; i<wordKey.size(); i++) {
-//			wordKey.get(i) == key값 / dictionary.get(key값) == value값
-			String meaning = dictionary.get(wordKey.get(i));
-			System.out.println( (i+1) +"번째 단어 : " + wordKey.get(i) + "의 뜻 : " + meaning ) ;
-		}
-		
-//		System.out.println(dictionary.entrySet());
-	}
-	
+//	program start method
 	public void ProgramStart() {
 
 		this.matchMenu();
