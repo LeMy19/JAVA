@@ -22,9 +22,9 @@ public class PrintSeats {
 				}
 				System.out.println("");
 			} 
-			else {
+/*			else {
 				System.out.println("처음부터 존재하는 영화관 좌석이 없습니다.");
-			}
+			}*/
 		}
 		
 	}

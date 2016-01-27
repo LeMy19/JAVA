@@ -47,11 +47,24 @@ public class BookSeats {
 		
 		if( selectedSeats.get(selectedSeatNumber.get(1)) == "□" ) {
 			return true;
+		} 
+		else {
+			System.out.println("이미 예약하셨습니다.");
+			return false;
 		}
 		
-		return false;
 	}
 
+//	좌석이 꽉 찼는지 확인 
+	public boolean isSeatFull (TheaterBiz biz, SetTheaterSeats setSeat) {
+		
+		if ( biz.getBookedSeat() == setSeat.getTotal() ) {
+			System.out.println("좌석이 매진되었습니다.");
+			return true;
+		}
+		return false;
+	}
+	
 //	좌석 예약하기
 	public void bookSeats (ScannerPack scanner, TheaterBiz biz, SetTheaterSeats setSeat) {
 		
@@ -59,17 +72,17 @@ public class BookSeats {
 		
 		try {
 //			예약석인지 확인
-			if( isSeatBooked(biz, setSeat) ) {
+			if( isSeatBooked(biz, setSeat) || isSeatFull(biz, setSeat)) {
 				selectedSeats.set(selectedSeatNumber.get(1), "■");
 				int temp = biz.getBookedSeat();
 				biz.setBookedSeat(temp+1);
 			}
 			else {
-				System.out.println("좌석을 예약할 수 없습니다.");
+				System.out.println("예약할 수 없습니다.");
 			}
 		}
-		catch(IndexOutOfBoundsException error) {
-			System.out.println("없는 좌석을 입력하였습니다.");
+		catch(IndexOutOfBoundsException | NullPointerException error) {
+			System.out.println("오류가 생겼습니다.");
 		}
 		
 	}
