@@ -1,6 +1,7 @@
 package com.ktds.leinalee;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 public class AddressBookBiz {
@@ -42,10 +43,49 @@ public class AddressBookBiz {
 //	3. delete
 	public void deleteAddressbyName(String name) {
 //		이름으로 주소를 검색함 
-		for (AddressBookInfoVO addressInfo : this.addressInfoList) {
-			if (addressInfo.getName().equals(name)) {
-				this.addressInfoList.remove(addressInfo);
+/*		int index = 0;
+		try {
+			for (AddressBookInfoVO addressInfo : this.addressInfoList) {
+				if ( addressInfo.getName() != null && addressInfo.getName().equals(name)) {
+					index = this.addressInfoList.indexOf(name);
+					this.addressInfoList.remove(index);
+					this.addressInfoList.remove(addressInfo);
+				}
 			}
+		}
+		catch (ConcurrentModificationException | ArrayIndexOutOfBoundsException error) {
+			System.out.println(error.getMessage() +"오류가 났습니다.");
+		}
+		*/
+//		리스트 탐색은 역방향으로 해야한다. 
+		for ( int i = addressInfoList.size() - 1; i >= 0; i--) {
+			if ( addressInfoList.get(i).getName().equals(name) ) {
+				addressInfoList.remove(i);
+			}
+		}
+
+	}
+	
+//	4. modify
+	public void modifyAddressbyName(String name) {
+//		이름으로 주소를 검색함 
+//		int index = 0;
+		try {
+			for (AddressBookInfoVO addressInfo : this.addressInfoList) {
+				if ( addressInfo.getName() != null && addressInfo.getName().equals(name)) {
+//					index = this.addressInfoList.indexOf(name);
+//					this.addressInfoList.remove(index);
+					this.addressInfoList.remove(addressInfo);
+					
+//					인스턴스는 메모리 주소를 가지고 있음 
+//					addressInfo.setName(scanner.next());
+					
+					
+				}
+			}
+		}
+		catch (ConcurrentModificationException | ArrayIndexOutOfBoundsException error) {
+			System.out.println(error.getMessage() +"오류가 났습니다.");
 		}
 	}
 	

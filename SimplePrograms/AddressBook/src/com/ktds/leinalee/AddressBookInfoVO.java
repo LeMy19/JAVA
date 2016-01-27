@@ -31,7 +31,7 @@ public class AddressBookInfoVO {
 		return phoneNumber;
 	}
 	public boolean setPhoneNumber(String phoneNumber) {
-		if( !phoneNumber.matches("^[0-9|-|+]*$") ){
+		if( !phoneNumber.matches("^[0-9|-]*$") ){
 			System.out.println("잘 못된 전화번호 형식입니다. 다시 입력하세요.");
 			return true;
 		}
@@ -44,4 +44,5 @@ public class AddressBookInfoVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
 }
