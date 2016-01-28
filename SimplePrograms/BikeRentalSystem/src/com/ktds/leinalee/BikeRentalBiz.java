@@ -142,9 +142,9 @@ public class BikeRentalBiz {
 		System.out.println("<반납>");
 		System.out.println("이름: ");
 		temp = this.nameCheck(input.inputString());
-		
-		if ( temp != null ) {
-			int result;
+
+		if ( temp.getName() != null ) {
+			int result;				
 			int fee;
 			
 			temp.setReturnTime(this.check.timeCheck());
@@ -154,6 +154,9 @@ public class BikeRentalBiz {
 			System.out.println("대여료는 : " +fee);
 			this.getInfo().remove(temp);
 			this.backBike(temp.getBikeType());
+		} 
+		else {
+			System.out.println("반납할 수 없습니다.");
 		}
 	}
 	
@@ -171,10 +174,9 @@ public class BikeRentalBiz {
 	
 	public int rentalFee (int time, int type) {
 		int resultTime = (int) Math.round(time/10.0);
-		return BikeRentalBiz.BIKE_PRICE[type] * resultTime;
+		return BikeRentalBiz.BIKE_PRICE[type-1] * resultTime;
 	}
 	
-
 	
 	public void program () {
 		
