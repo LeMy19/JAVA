@@ -2,7 +2,7 @@ package com.ktds.leinalee;
 
 /**
  * name : 이름 phonNumber : 전화번호 gurantee : 담보 loanAmount : 대출금액 loanDate : 대출일자
- * totalRentTime : 총 대출 시간 ownCash : 소지금액
+ * totalRentTime : 총 대출 시간 ownCash : 소지 금액
  * 
  * @author 206-025
  *

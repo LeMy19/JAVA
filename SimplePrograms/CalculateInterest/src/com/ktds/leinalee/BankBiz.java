@@ -17,6 +17,8 @@ public class BankBiz {
 	private InputPackage input;
 	private CheckTime checkTime;
 	
+//	private LoanCash 
+	private Bankrupt menu3;
 	private ShowStatus menu4;
 	
 //	Getter & Setter
@@ -53,6 +55,7 @@ public class BankBiz {
 		checkTime = new CheckTime();
 		
 		menu4 = new ShowStatus();
+		menu3 = new Bankrupt();
 	}
 	
 //	method 
@@ -70,10 +73,10 @@ public class BankBiz {
 				this.payBack();
 			} 
 			else if ( this.getFlag() == 3 ) {
-				this.preCheck();
+//				this.preCheck();
+				menu3.preCheck(input, this);
 			} 
 			else if ( this.getFlag() == 4 ) {
-//				this.showMyStatus();
 				menu4.showMyStatus(input, this);
 			} 
 			else {
@@ -121,8 +124,6 @@ public class BankBiz {
 			long ownCash = tempInfo.getOwnCash();
 			tempInfo.setOwnCash(ownCash + tempInfo.getLoanAmount());
 			System.out.println("---------------------------------------");
-			
-			this.getCustomerInfo().add(tempInfo);
 		}
 		else
 		{
@@ -160,7 +161,7 @@ public class BankBiz {
 			}
 			else {
 				System.out.println("현재 돈으로 갚을 수 없습니다.");
-				this.preCheck();
+				this.menu3.preCheck(input, this);
 			}
 		}
 		else {
@@ -195,7 +196,7 @@ public class BankBiz {
 	
 //	이자(복리) 계산하기
 	public int calculateInterest (int nTime, CustomerInfoVO tempInfo) {
-		int time = Math.round(nTime/10);
+		int time = Math.round(nTime/5);
 		double rate = Math.pow(RATE, time);
 		int total =  (int) Math.round(tempInfo.getLoanAmount() * rate);
 		tempInfo.setPayBackMoney(total);
@@ -203,49 +204,5 @@ public class BankBiz {
 		return total;
 	}
 	
-	/**
-	 * menu3 파산
-	 */
-	public void preCheck () {
-		System.out.println("정말로 파산하시겠습니까? Y/N");
-		if ( input.inputPreCheck() ) {
-			this.bankrupt();
-		}
-	}
-	
-	public void bankrupt () {
-		CustomerInfoVO info = new CustomerInfoVO();
-		System.out.println("이름을 입력하세요.");
-		String tempName = this.input.inputString();
-		info = this.nameCheck(tempName);
-		
-		if ( info.getName() != null ) {
-			this.getCustomerInfo().remove(info);
-			System.out.println("파산하였습니다.");
-		}
-		else {
-			System.out.println("이름이 정확하지 않습니다.");
-		}
-	}
-	
-	/**
-	 * menu4 내 상태
-	 */
-	public void showMyStatus () {
-		CustomerInfoVO info = new CustomerInfoVO();
-		System.out.println("이름을 입력하세요.");
-		String tempName = this.input.inputString();
-		info = this.nameCheck(tempName);
-		
-		if ( info.getName() != null ) {
-			System.out.println("이름: " + info.getName());
-			System.out.println("대출 금액: " + info.getLoanAmount());
-			System.out.println("담보: " + info.getGuarantee());
-			System.out.println("소지금액: " + info.getOwnCash());
-		}
-		else {
-			System.out.println("출력할 정보가 없습니다.");
-		}
-	}
 	
 }
