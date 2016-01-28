@@ -16,13 +16,4 @@ public class CheckTime {
 		int totalRentTime = currentTime - previousTime;
 		return totalRentTime;
 	}
-	
-//	현재시각 print...
-	public void printTime() {
-		Calendar cal = Calendar.getInstance();
-		System.out.print(cal.get( Calendar.HOUR_OF_DAY ) + "시 ");
-		System.out.print(cal.get( Calendar.MINUTE ) + "분 ");
-		System.out.print(cal.get( Calendar.SECOND ) + "초 \n");
-		
-	}
 }

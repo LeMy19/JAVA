@@ -18,7 +18,7 @@ public class LoanCash {
 		tempInfo.setPhoneNumber(input.inputString());
 		tempInfo.setLoanAmount(input.inputInt());
 //		대출가능한지 체크 (한도초과)
-		if ( canLoanCash (tempInfo.getLoanAmount()) ) {
+		if ( canLoanCash (tempInfo.getLoanAmount()) && biz.getBankAmount() > tempInfo.getLoanAmount() ) {
 			tempInfo.setGuarantee(input.inputString());
 			tempInfo.setOwnCash(input.inputLong());
 			tempInfo.setLoanDate(checkTime.timeCheck());
@@ -30,6 +30,8 @@ public class LoanCash {
 			long ownCash = tempInfo.getOwnCash();
 			tempInfo.setOwnCash(ownCash + tempInfo.getLoanAmount());
 			System.out.println("---------------------------------------");
+			int bankAmount = (int) (biz.getBankAmount() - tempInfo.getLoanAmount());
+			biz.setBankAmount(bankAmount);
 		}
 		else
 		{
