@@ -90,6 +90,7 @@ public class BikeRentalBiz {
 		System.out.println("3)고급형 자전거: "+ cBike);
 	}
 
+	
 	public void rentBike () {
 		BikeRentalInfoVO temp = new BikeRentalInfoVO();
 		
@@ -103,7 +104,10 @@ public class BikeRentalBiz {
 //		자전거 대여할 수 있는지 확인 & 시간 확인
 		if ( this.bikeCheck(temp.getBikeType())) {
 			temp.setNowTime(this.check.timeCheck());
+			System.out.println("대여시간: ");
+			this.check.printTime();
 			this.getInfo().add(temp);
+			temp.setOwnMoney(50000);
 		}
 	}
 	
@@ -146,14 +150,22 @@ public class BikeRentalBiz {
 		if ( temp.getName() != null ) {
 			int result;				
 			int fee;
+			int remain;
 			
 			temp.setReturnTime(this.check.timeCheck());
 			result = this.check.totalRentalTime( temp.getNowTime(), temp.getReturnTime());
+			System.out.println("반납시간: ");
+			this.check.printTime();
 			System.out.println("총 대여 시간(분/min): " + result);
 			fee = this.rentalFee(result, temp.getBikeType());
 			System.out.println("대여료는 : " +fee);
 			this.getInfo().remove(temp);
 			this.backBike(temp.getBikeType());
+			
+			System.out.println("보유금액에서 차감합니다.");
+			remain = temp.getOwnMoney() - fee;
+			System.out.println("업데이트된 보유금액: " + remain);
+			
 		} 
 		else {
 			System.out.println("반납할 수 없습니다.");

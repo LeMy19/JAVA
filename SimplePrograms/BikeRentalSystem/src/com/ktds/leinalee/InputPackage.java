@@ -37,4 +37,26 @@ public class InputPackage {
 			}
 		}
 	}
+	
+	public int inputMainMenu () {
+		input = new Scanner(System.in);
+		
+		while (true) {
+			int menuNumber = 0;
+			String inputMenu = input.nextLine();
+			
+			if ( inputMenu.equalsIgnoreCase("exit") ) {
+				System.exit(0);
+			} 
+			else if ( inputMenu.matches("^[1-3]") ) {			
+				menuNumber = Integer.parseInt(inputMenu);
+				return menuNumber;
+			} 
+			else {
+				System.out.println("다시 입력하세요.");
+			}
+		}
+		
+	}
+	
 }

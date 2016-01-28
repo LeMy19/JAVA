@@ -7,6 +7,15 @@ public class BikeRentalInfoVO {
 	private int nowTime;
 	private int returnTime;
 	private int totalFee;
+	private int ownMoney;
+
+	public int getOwnMoney() {
+		return ownMoney;
+	}
+
+	public void setOwnMoney(int ownMoney) {
+		this.ownMoney = ownMoney;
+	}
 
 	public int getTotalFee() {
 		return totalFee;
